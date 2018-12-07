@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		441C60C621B52100004B6DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C60C521B52100004B6DEB /* AppDelegate.swift */; };
 		441C60C821B52100004B6DEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C60C721B52100004B6DEB /* ViewController.swift */; };
-		441C60CB21B52100004B6DEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441C60C921B52100004B6DEB /* Main.storyboard */; };
 		441C60CE21B52100004B6DEB /* Meme_Currency_Converter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 441C60CC21B52100004B6DEB /* Meme_Currency_Converter.xcdatamodeld */; };
 		441C60D021B52101004B6DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 441C60CF21B52101004B6DEB /* Assets.xcassets */; };
 		441C60D321B52101004B6DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441C60D121B52101004B6DEB /* LaunchScreen.storyboard */; };
 		441C60DE21B52102004B6DEB /* Meme_Currency_ConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C60DD21B52102004B6DEB /* Meme_Currency_ConverterTests.swift */; };
 		441C60E921B52102004B6DEB /* Meme_Currency_ConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C60E821B52102004B6DEB /* Meme_Currency_ConverterUITests.swift */; };
+		441C613821B91E08004B6DEB /* NumpadStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613721B91E08004B6DEB /* NumpadStackView.swift */; };
+		441C613A21B9A2A8004B6DEB /* NumRowStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613921B9A2A8004B6DEB /* NumRowStackView.swift */; };
+		441C613C21B9A32F004B6DEB /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613B21B9A32F004B6DEB /* NumpadButton.swift */; };
+		441C613E21B9A469004B6DEB /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613D21B9A469004B6DEB /* NumpadView.swift */; };
+		441C616C21BA0B90004B6DEB /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C616B21BA0B90004B6DEB /* network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +42,6 @@
 		441C60C221B52100004B6DEB /* Meme_Currency_Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meme_Currency_Converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		441C60C521B52100004B6DEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		441C60C721B52100004B6DEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		441C60CA21B52100004B6DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		441C60CD21B52100004B6DEB /* Meme_Currency_Converter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meme_Currency_Converter.xcdatamodel; sourceTree = "<group>"; };
 		441C60CF21B52101004B6DEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		441C60D221B52101004B6DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,11 @@
 		441C60E421B52102004B6DEB /* Meme_Currency_ConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Meme_Currency_ConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		441C60E821B52102004B6DEB /* Meme_Currency_ConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme_Currency_ConverterUITests.swift; sourceTree = "<group>"; };
 		441C60EA21B52102004B6DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		441C613721B91E08004B6DEB /* NumpadStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadStackView.swift; sourceTree = "<group>"; };
+		441C613921B9A2A8004B6DEB /* NumRowStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumRowStackView.swift; sourceTree = "<group>"; };
+		441C613B21B9A32F004B6DEB /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
+		441C613D21B9A469004B6DEB /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
+		441C616B21BA0B90004B6DEB /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +109,11 @@
 			children = (
 				441C60C521B52100004B6DEB /* AppDelegate.swift */,
 				441C60C721B52100004B6DEB /* ViewController.swift */,
-				441C60C921B52100004B6DEB /* Main.storyboard */,
+				441C613721B91E08004B6DEB /* NumpadStackView.swift */,
+				441C613D21B9A469004B6DEB /* NumpadView.swift */,
+				441C613921B9A2A8004B6DEB /* NumRowStackView.swift */,
+				441C613B21B9A32F004B6DEB /* NumpadButton.swift */,
+				441C616B21BA0B90004B6DEB /* network.swift */,
 				441C60CF21B52101004B6DEB /* Assets.xcassets */,
 				441C60D121B52101004B6DEB /* LaunchScreen.storyboard */,
 				441C60D421B52101004B6DEB /* Info.plist */,
@@ -234,7 +246,6 @@
 			files = (
 				441C60D321B52101004B6DEB /* LaunchScreen.storyboard in Resources */,
 				441C60D021B52101004B6DEB /* Assets.xcassets in Resources */,
-				441C60CB21B52100004B6DEB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +271,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				441C60CE21B52100004B6DEB /* Meme_Currency_Converter.xcdatamodeld in Sources */,
+				441C613E21B9A469004B6DEB /* NumpadView.swift in Sources */,
+				441C616C21BA0B90004B6DEB /* network.swift in Sources */,
 				441C60C821B52100004B6DEB /* ViewController.swift in Sources */,
+				441C613821B91E08004B6DEB /* NumpadStackView.swift in Sources */,
+				441C613A21B9A2A8004B6DEB /* NumRowStackView.swift in Sources */,
+				441C613C21B9A32F004B6DEB /* NumpadButton.swift in Sources */,
 				441C60C621B52100004B6DEB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,14 +313,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		441C60C921B52100004B6DEB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				441C60CA21B52100004B6DEB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		441C60D121B52101004B6DEB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
