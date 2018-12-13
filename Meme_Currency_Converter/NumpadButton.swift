@@ -22,6 +22,12 @@ class NumpadButton: UIButton {
     }
     
     @objc func NumberButtonTapped(){
+        let appView = ViewController()
+        appView.mainCurrencyLabel.text = "\(tag)"
         print(tag)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateLabel"), object: nil, userInfo: ["number" : tag])
     }
+    
+    
 }

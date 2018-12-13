@@ -15,7 +15,9 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         setupNumpad()
         setupLabel()
-        network()
+        //network()
+        gettingCodes()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateLabel(_:)), name: NSNotification.Name(rawValue: "updateLabel"), object: nil)
     }
     let numpad = NumpadView(frame: .zero)
     
@@ -31,9 +33,9 @@ class ViewController: UIViewController {
     
     let mainCurrencyLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "This is the first currency"
+        label.text = "0"
         label.font = UIFont(name: "Helvetica", size: 25)
-        label.backgroundColor = .blue
+        label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .right
         return label
@@ -41,9 +43,9 @@ class ViewController: UIViewController {
     
     let secondaryCurrencyLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "This is the second currency"
+        label.text = "0"
         label.font = UIFont(name: "Helvetica", size: 25)
-        label.backgroundColor = .blue
+        label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .right
         return label
@@ -67,6 +69,35 @@ class ViewController: UIViewController {
             labelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             ])
     }
-
+    
+    @objc func updateLabel(_ notification: NSNotification) {
+        // TODO: Make sure Unwrap this is
+        guard let mainLabel = mainCurrencyLabel.text else {return}
+        
+        
+        if let passedNumber = notification.userInfo?["number"] as? Int{
+            if mainLabel == "0"{
+                mainCurrencyLabel.text = "\(passedNumber)"
+            }else{
+                mainCurrencyLabel.text = mainLabel + "\(passedNumber)"
+            }
+        }
+        
+        if let _ = notification.userInfo?["decimal"] as? Bool {
+            if mainLabel.contains("."){
+                return
+            }else{
+                mainCurrencyLabel.text = mainLabel + "."
+            }
+        }
+        
+        if let _ = notification.userInfo?["clear"] as? Bool {
+            mainCurrencyLabel.text = "0"
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "updateLabel"), object: nil)
+    }
 }
 

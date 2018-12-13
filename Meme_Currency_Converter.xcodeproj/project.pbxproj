@@ -19,6 +19,7 @@
 		441C613C21B9A32F004B6DEB /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613B21B9A32F004B6DEB /* NumpadButton.swift */; };
 		441C613E21B9A469004B6DEB /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C613D21B9A469004B6DEB /* NumpadView.swift */; };
 		441C616C21BA0B90004B6DEB /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C616B21BA0B90004B6DEB /* network.swift */; };
+		441E8B3921C1DC4800060459 /* CurrencyCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E8B3821C1DC4800060459 /* CurrencyCodes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		441C613B21B9A32F004B6DEB /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
 		441C613D21B9A469004B6DEB /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		441C616B21BA0B90004B6DEB /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
+		441E8B3821C1DC4800060459 /* CurrencyCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCodes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				441C613921B9A2A8004B6DEB /* NumRowStackView.swift */,
 				441C613B21B9A32F004B6DEB /* NumpadButton.swift */,
 				441C616B21BA0B90004B6DEB /* network.swift */,
+				441E8B3821C1DC4800060459 /* CurrencyCodes.swift */,
 				441C60CF21B52101004B6DEB /* Assets.xcassets */,
 				441C60D121B52101004B6DEB /* LaunchScreen.storyboard */,
 				441C60D421B52101004B6DEB /* Info.plist */,
@@ -273,6 +276,7 @@
 				441C60CE21B52100004B6DEB /* Meme_Currency_Converter.xcdatamodeld in Sources */,
 				441C613E21B9A469004B6DEB /* NumpadView.swift in Sources */,
 				441C616C21BA0B90004B6DEB /* network.swift in Sources */,
+				441E8B3921C1DC4800060459 /* CurrencyCodes.swift in Sources */,
 				441C60C821B52100004B6DEB /* ViewController.swift in Sources */,
 				441C613821B91E08004B6DEB /* NumpadStackView.swift in Sources */,
 				441C613A21B9A2A8004B6DEB /* NumRowStackView.swift in Sources */,

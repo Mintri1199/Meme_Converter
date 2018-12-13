@@ -87,6 +87,7 @@ class NumpadView: UIView {
         let button = UIButton(frame: .zero)
         button.setTitle(".", for: .normal)
         button.backgroundColor = .gray
+        button.addTarget(self, action: #selector(addDecimal), for: .touchUpInside)
         return button
     }()
     
@@ -94,6 +95,7 @@ class NumpadView: UIView {
         let button = UIButton(frame: .zero)
         button.setTitle("C", for: .normal)
         button.backgroundColor = .gray
+        button.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
         return button
     }()
     
@@ -144,4 +146,11 @@ class NumpadView: UIView {
             ])
     }
     
+    @objc func addDecimal() {
+        NotificationCenter.default.post(name: NSNotification.Name("updateLabel"), object: nil, userInfo: ["decimal" : true])
+    }
+
+    @objc func clearTapped() {
+        NotificationCenter.default.post(name: NSNotification.Name("updateLabel"), object: nil, userInfo: ["clear": true])
+    }
 }

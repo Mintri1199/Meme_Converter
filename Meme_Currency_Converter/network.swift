@@ -16,7 +16,8 @@ struct CurrencyConversion {
 
 
 func network() {
-    
+    // This mean at we could change the url resquest depending on the two currency the user want to convert
+                                                                                        //Add string interpolation here
     guard let url = URL(string: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP,PHP_USD") else {return}
     //data: content, response: HTTP status code, Error: error
     let task = URLSession.shared.dataTask(with: url) {(data, reponse, error) in
@@ -28,7 +29,8 @@ func network() {
                 return
             }
            // guard let rates = jsonResponse["rates"] as? Array else {return}
-            print(jsonContent)
+            let rates = jsonContent["results"]
+            print(rates)
             
             
         }catch{
