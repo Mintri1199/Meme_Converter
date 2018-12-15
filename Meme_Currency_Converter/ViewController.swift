@@ -14,17 +14,26 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
         super.viewDidLoad()
         view.backgroundColor = .white
         setupNumpad()
+        let baseCurrency = Double(firstCurrencyView.amountLabel.text!)
+        mockRates()
+
         setupCurrenciesView()
-        //network()
         let gesture  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
         let gesture2  = UITapGestureRecognizer(target: self, action: #selector(changeSecondCurrency))
-        
         firstCurrencyView.currencyCodeLabel.isUserInteractionEnabled = true
         firstCurrencyView.currencyCodeLabel.addGestureRecognizer(gesture)
         secondCurrencyView.currencyCodeLabel.isUserInteractionEnabled = true
         secondCurrencyView.currencyCodeLabel.addGestureRecognizer(gesture2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateLabel(_:)), name: NSNotification.Name(rawValue: "updateLabel"), object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let baseCurrency = Double(self.firstCurrencyView.amountLabel.text!)
+        mockRates()
+    }
+    
+    
     let numpad = NumpadView(frame: .zero)
     
     func setupNumpad(){
@@ -46,7 +55,6 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
     let secondCurrencyView: CurrencyView = {
         var view = CurrencyView(frame: .zero)
         view.currencyCodeLabel.text = "EUR"
-        view.currencyCodeLabel.backgroundColor = .cyan
         return view
     }()
     
@@ -90,7 +98,6 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
     
     @objc func updateLabel(_ notification: NSNotification) {
         guard let mainLabel = firstCurrencyView.amountLabel.text else {return}
-        
         
         if let passedNumber = notification.userInfo?["number"] as? Int{
             if mainLabel == "0"{

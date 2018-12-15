@@ -8,28 +8,26 @@
 
 import Foundation
 
-struct CurrencyConversion {
-    var baseCurrency: String
-    var convertingCurrency: String
-    var convertingAmount: Double
-}
-
-
-func network() {
-    // This mean at we could change the url resquest depending on the two currency the user want to convert
-                                                                                        //Add string interpolation here
-    guard let url = URL(string: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP,PHP_USD") else {return}
+func getRates(firstCurrency: String, secondCurrency: String /*completion: @escaping(Double) -> ()*/) {
+    //var rates : Double = 0
+    let firstPair: String = "\(firstCurrency)_\(secondCurrency)"
+    let secondPair: String = "\(secondCurrency)_\(firstCurrency)"
+    
+    guard let url = URL(string: "https://free.currencyconverterapi.com/api/v6/convert?q=\(firstPair),\(secondPair)") else {return}
     //data: content, response: HTTP status code, Error: error
     let task = URLSession.shared.dataTask(with: url) {(data, reponse, error) in
         guard let dataResponse = data , error == nil else {print(error?.localizedDescription ?? "Response Error")
             return}
         do {
             let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
-            guard let jsonContent = jsonResponse as? [String: Any] else {
+            guard let jsonContent = jsonResponse as? [String: [String: Any]] else {
                 return
             }
-           // guard let rates = jsonResponse["rates"] as? Array else {return}
-            let rates = jsonContent["results"]
+            // guard let rates = jsonResponse["rates"] as? Array else {return}
+            let initial = jsonContent["results"]
+            let conversion = initial?["\(firstPair)"]
+            
+
             
         }catch{
             print("error")
@@ -37,3 +35,31 @@ func network() {
     }
     task.resume()
 }
+
+// TODO: Fix JSON Error and return a DOUBLE
+func mockRates() {
+
+    let firstPair: String = "USD_EUR"
+    let secondPair: String = "EUR_USD"
+    
+    guard let url = URL(string: "https://free.currencyconverterapi.com/api/v6/convert?q=\(firstPair),\(secondPair)") else {return}
+    let task = URLSession.shared.dataTask(with: url) {(data, reponse, error) in
+        guard let dataResponse = data , error == nil else {print(error?.localizedDescription ?? "Response Error")
+            return}
+        do {
+            let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
+            guard let jsonContent = jsonResponse as? [String: [String: Any]] else {
+                return
+            }
+            // guard let rates = jsonResponse["rates"] as? Array else {return}
+            let initial = jsonContent["results"]
+            let conversion = initial?["\(firstPair)"]
+            print(conversion)
+            
+        }catch{
+            print("error")
+        }
+    }
+    task.resume()
+}
+
