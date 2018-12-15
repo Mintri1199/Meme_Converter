@@ -19,6 +19,7 @@ class SecondCurrencyPickerViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("In second picker")
         navigationController?.isNavigationBarHidden = false
         tableView.delegate = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: "cell")

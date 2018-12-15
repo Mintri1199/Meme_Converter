@@ -17,7 +17,7 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
         setupCurrenciesView()
         //network()
         let gesture  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
-        let gesture2  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
+        let gesture2  = UITapGestureRecognizer(target: self, action: #selector(changeSecondCurrency))
         
         firstCurrencyView.currencyCodeLabel.isUserInteractionEnabled = true
         firstCurrencyView.currencyCodeLabel.addGestureRecognizer(gesture)
