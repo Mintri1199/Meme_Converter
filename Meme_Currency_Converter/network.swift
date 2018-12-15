@@ -30,8 +30,6 @@ func network() {
             }
            // guard let rates = jsonResponse["rates"] as? Array else {return}
             let rates = jsonContent["results"]
-            print(rates)
-            
             
         }catch{
             print("error")

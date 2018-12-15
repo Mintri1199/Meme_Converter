@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, MoveData{
+class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,7 @@ class ViewController: UIViewController, MoveData{
     let secondCurrencyView: CurrencyView = {
         var view = CurrencyView(frame: .zero)
         view.currencyCodeLabel.text = "EUR"
+        view.currencyCodeLabel.backgroundColor = .cyan
         return view
     }()
     
@@ -69,26 +70,23 @@ class ViewController: UIViewController, MoveData{
     
     @objc func changeCurrency (){
         let nextVC = CurrencyPickerViewController()
-        nextVC.choosingSecond = false
         nextVC.delegate = self
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func changeSecondCurrency() {
-        let nextVC = CurrencyPickerViewController()
-        nextVC.choosingSecond = true
+        let nextVC = SecondCurrencyPickerViewController()
         nextVC.delegate = self
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    func changeCurrencyCode(newCode: String, choosingSecond: Bool) {
-        if choosingSecond == true {
-            secondCurrencyView.currencyCodeLabel.text = newCode
-        }else{
-            firstCurrencyView.currencyCodeLabel.text =  newCode
-        }
+    func changeCurrencyCode(newCode: String) {
+        firstCurrencyView.currencyCodeLabel.text = newCode
     }
 
+    func changeCurrencyLabel(newCode: String) {
+        secondCurrencyView.currencyCodeLabel.text = newCode
+    }
     
     @objc func updateLabel(_ notification: NSNotification) {
         guard let mainLabel = firstCurrencyView.amountLabel.text else {return}

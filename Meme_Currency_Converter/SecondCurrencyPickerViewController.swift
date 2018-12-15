@@ -1,21 +1,21 @@
 //
-//  CurrencyPickerViewController.swift
+//  SecondCurrencyPickerViewController.swift
 //  Meme_Currency_Converter
 //
-//  Created by Jackson Ho on 12/12/18.
+//  Created by Jackson Ho on 12/14/18.
 //  Copyright © 2018 Jackson Ho. All rights reserved.
 //
 
 import UIKit
 
-protocol MoveData {
-    
-    func changeCurrencyCode(newCode: String)
+protocol ChangingSecondCurrency {
+    func changeCurrencyLabel(newCode: String)
 }
 
-class CurrencyPickerViewController: UITableViewController {
+class SecondCurrencyPickerViewController: UITableViewController {
+    // Initialize empty array for currency codes
     var currencyCodes = [String]()
-    var delegate: MoveData?
+    var delegate: ChangingSecondCurrency?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +24,12 @@ class CurrencyPickerViewController: UITableViewController {
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: "cell")
         CurrencyCodes.gettingCodes { (results:[String]) in
             self.currencyCodes = results.sorted()
-            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyCodes.count
     }
@@ -40,16 +39,14 @@ class CurrencyPickerViewController: UITableViewController {
         cell.textLabel?.text = currencyCodes[indexPath.row]
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell =  tableView.cellForRow(at: indexPath)
         guard let code = cell?.textLabel?.text else {return}
-        delegate?.changeCurrencyCode(newCode: code)
-
+        delegate?.changeCurrencyLabel(newCode: code)
+        
         navigationController?.popViewController(animated: true)
         
     }
 
-
 }
-
