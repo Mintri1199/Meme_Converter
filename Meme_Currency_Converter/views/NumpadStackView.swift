@@ -11,8 +11,8 @@ import UIKit
 class NumpadStackView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         distribution = .fillEqually
+        spacing = 0
         axis = .vertical
         translatesAutoresizingMaskIntoConstraints = false 
     }

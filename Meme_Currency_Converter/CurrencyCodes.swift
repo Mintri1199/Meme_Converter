@@ -8,27 +8,44 @@
 
 import Foundation
 
-
-
-func gettingCodes(){
-    var currencyCodes = [String]()
+struct CurrencyCodes{
+    var codes : [String]
     
-    guard let url = URL(string: "https://free.currencyconverterapi.com/api/v6/currencies") else {return}
+    enum SerializationError: Error {
+        case missing(String)
+        case invalid(String, Any)
+    }
+    init(json: [String: [String: Any]]) throws {
+        guard let test = Array((json["results"]?.keys)!) as? [String] else {throw SerializationError.missing("codes doesn't exist")}
+        self.codes = test
+    }
     
-    let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-        guard let dataResponse = data, error == nil else{print(error?.localizedDescription ?? "Response Error")
-            return}
-        do {
-            let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as! NSDictionary
-            //print(jsonResponse["results"])
-            if let jsonContent = jsonResponse["results"] {
-                print(jsonContent)
+    // Returning a list of currency codes instead of hardcoding it in
+    static func gettingCodes(completion: @escaping ([String]) -> ()) {
+        
+        var currencyCodes: [String] = []
+        
+        let urlString = "https://free.currencyconverterapi.com/api/v6/currencies"
+        
+        guard let url = URL(string: urlString) else {return}
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let dataResponse = data, error == nil else{print(error?.localizedDescription ?? "Response Error")
+                return}
+            
+            do{
+                let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as! NSDictionary
+                guard let jsonContent = jsonResponse as? [String: [String: Any]] else {return}
+                for key in (jsonContent["results"]?.keys)!{
+                    currencyCodes.append(key)                }
+                
+            }catch{
+                print("error")
             }
             
-        }catch{
-            print("error")
+            completion(currencyCodes)
         }
+        task.resume()
     }
-    task.resume()
-    
 }
+

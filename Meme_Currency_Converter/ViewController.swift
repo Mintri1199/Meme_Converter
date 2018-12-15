@@ -8,15 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MoveData{
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupNumpad()
-        setupLabel()
+        setupCurrenciesView()
         //network()
-        gettingCodes()
+        let gesture  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
+        let gesture2  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
+        
+        firstCurrencyView.currencyCodeLabel.isUserInteractionEnabled = true
+        firstCurrencyView.currencyCodeLabel.addGestureRecognizer(gesture)
+        secondCurrencyView.currencyCodeLabel.isUserInteractionEnabled = true
+        secondCurrencyView.currencyCodeLabel.addGestureRecognizer(gesture2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateLabel(_:)), name: NSNotification.Name(rawValue: "updateLabel"), object: nil)
     }
     let numpad = NumpadView(frame: .zero)
@@ -30,56 +36,69 @@ class ViewController: UIViewController {
             numpad.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
             ])
     }
-    
-    let mainCurrencyLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "0"
-        label.font = UIFont(name: "Helvetica", size: 25)
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.textAlignment = .right
-        return label
+    // Instantiate the two currency views
+    let firstCurrencyView: CurrencyView = {
+        var view = CurrencyView(frame: .zero)
+        view.currencyCodeLabel.text = "USD"
+        return view
     }()
     
-    let secondaryCurrencyLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "0"
-        label.font = UIFont(name: "Helvetica", size: 25)
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.textAlignment = .right
-        return label
+    let secondCurrencyView: CurrencyView = {
+        var view = CurrencyView(frame: .zero)
+        view.currencyCodeLabel.text = "EUR"
+        return view
     }()
     
+    var currenciesStackView = UIStackView()
     
-    func setupLabel() {
-        let labelStackView = UIStackView(frame: .zero)
-        labelStackView.addArrangedSubview(mainCurrencyLabel)
-        labelStackView.addArrangedSubview(secondaryCurrencyLabel)
-        labelStackView.distribution = .fillEqually
-        labelStackView.spacing = 0
-        labelStackView.axis = .vertical
-        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+    func setupCurrenciesView(){
+        view.addSubview(currenciesStackView)
+        currenciesStackView.addArrangedSubview(firstCurrencyView)
+        currenciesStackView.addArrangedSubview(secondCurrencyView)
+        currenciesStackView.axis = .vertical
+        currenciesStackView.distribution = .fillEqually
+        currenciesStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(labelStackView)
         NSLayoutConstraint.activate([
-            labelStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            labelStackView.bottomAnchor.constraint(equalTo: numpad.topAnchor),
-            labelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            labelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            currenciesStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            currenciesStackView.bottomAnchor.constraint(equalTo: numpad.topAnchor),
+            currenciesStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            currenciesStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             ])
     }
     
+    @objc func changeCurrency (){
+        let nextVC = CurrencyPickerViewController()
+        nextVC.choosingSecond = false
+        nextVC.delegate = self
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func changeSecondCurrency() {
+        let nextVC = CurrencyPickerViewController()
+        nextVC.choosingSecond = true
+        nextVC.delegate = self
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func changeCurrencyCode(newCode: String, choosingSecond: Bool) {
+        if choosingSecond == true {
+            secondCurrencyView.currencyCodeLabel.text = newCode
+        }else{
+            firstCurrencyView.currencyCodeLabel.text =  newCode
+        }
+    }
+
+    
     @objc func updateLabel(_ notification: NSNotification) {
-        // TODO: Make sure Unwrap this is
-        guard let mainLabel = mainCurrencyLabel.text else {return}
+        guard let mainLabel = firstCurrencyView.amountLabel.text else {return}
         
         
         if let passedNumber = notification.userInfo?["number"] as? Int{
             if mainLabel == "0"{
-                mainCurrencyLabel.text = "\(passedNumber)"
+                firstCurrencyView.amountLabel.text = "\(passedNumber)"
             }else{
-                mainCurrencyLabel.text = mainLabel + "\(passedNumber)"
+                firstCurrencyView.amountLabel.text = mainLabel + "\(passedNumber)"
             }
         }
         
@@ -87,12 +106,12 @@ class ViewController: UIViewController {
             if mainLabel.contains("."){
                 return
             }else{
-                mainCurrencyLabel.text = mainLabel + "."
+                firstCurrencyView.amountLabel.text = mainLabel + "."
             }
         }
         
         if let _ = notification.userInfo?["clear"] as? Bool {
-            mainCurrencyLabel.text = "0"
+            firstCurrencyView.amountLabel.text = "0"
         }
     }
     
