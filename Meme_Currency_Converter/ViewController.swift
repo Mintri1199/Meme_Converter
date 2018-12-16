@@ -14,8 +14,8 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
         super.viewDidLoad()
         view.backgroundColor = .white
         setupNumpad()
-        let baseCurrency = Double(firstCurrencyView.amountLabel.text!)
-        mockRates()
+        
+        changingLabel()
 
         setupCurrenciesView()
         let gesture  = UITapGestureRecognizer(target: self, action: #selector(changeCurrency))
@@ -29,8 +29,19 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let baseCurrency = Double(self.firstCurrencyView.amountLabel.text!)
-        mockRates()
+        changingLabel()
+        
+    }
+    func changingLabel(){
+        var convert: Double = 0
+        getRates(firstCurrency: firstCurrencyView.currencyCodeLabel.text!, secondCurrency: secondCurrencyView.currencyCodeLabel.text!) { (result: Double) in
+            DispatchQueue.main.async {
+                if let baseCurrency = Double(self.firstCurrencyView.amountLabel.text!){
+                    convert = baseCurrency * result
+                    self.secondCurrencyView.amountLabel.text = "\(convert)"
+                }
+            }
+        }
     }
     
     
@@ -102,8 +113,10 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
         if let passedNumber = notification.userInfo?["number"] as? Int{
             if mainLabel == "0"{
                 firstCurrencyView.amountLabel.text = "\(passedNumber)"
+                changingLabel()
             }else{
                 firstCurrencyView.amountLabel.text = mainLabel + "\(passedNumber)"
+                changingLabel()
             }
         }
         
@@ -112,11 +125,13 @@ class ViewController: UIViewController, MoveData, ChangingSecondCurrency{
                 return
             }else{
                 firstCurrencyView.amountLabel.text = mainLabel + "."
+                changingLabel()
             }
         }
         
         if let _ = notification.userInfo?["clear"] as? Bool {
             firstCurrencyView.amountLabel.text = "0"
+            secondCurrencyView.amountLabel.text = "0"
         }
     }
     
