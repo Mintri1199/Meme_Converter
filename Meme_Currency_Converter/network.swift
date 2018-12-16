@@ -8,8 +8,8 @@
 
 import Foundation
 
-func getRates(firstCurrency: String, secondCurrency: String /*completion: @escaping(Double) -> ()*/) {
-    //var rates : Double = 0
+func getRates(firstCurrency: String, secondCurrency: String, completion: @escaping(Double) -> ()) {
+    var rates : Double = 0
     let firstPair: String = "\(firstCurrency)_\(secondCurrency)"
     let secondPair: String = "\(secondCurrency)_\(firstCurrency)"
     
@@ -25,20 +25,23 @@ func getRates(firstCurrency: String, secondCurrency: String /*completion: @escap
             }
             // guard let rates = jsonResponse["rates"] as? Array else {return}
             let initial = jsonContent["results"]
-            let conversion = initial?["\(firstPair)"]
-            
-
-            
+            if let conversion = initial?["\(firstPair)"] as?  NSDictionary {
+                if let gotRates = conversion["val"] as? Double {
+                    rates = gotRates
+                }
+            }
         }catch{
             print("error")
         }
+        
+        completion(rates)
     }
     task.resume()
 }
 
 // TODO: Fix JSON Error and return a DOUBLE
 func mockRates() {
-
+    var rates: Double = 0
     let firstPair: String = "USD_EUR"
     let secondPair: String = "EUR_USD"
     
@@ -53,8 +56,12 @@ func mockRates() {
             }
             // guard let rates = jsonResponse["rates"] as? Array else {return}
             let initial = jsonContent["results"]
-            let conversion = initial?["\(firstPair)"]
-            print(conversion)
+            if let conversion = initial?["\(firstPair)"] as?  NSDictionary {
+                if let gotRates = conversion["val"] as? Double {
+                    rates = gotRates
+                    print(rates)
+                }
+            }
             
         }catch{
             print("error")
